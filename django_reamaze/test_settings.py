@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 SECRET_KEY = 'iz@*(xuwo+a2a2r+jb1p8-ap8hic1_l(h$vj(mr_v!d6%ijr1n'
 
@@ -36,7 +37,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',)
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
      'django.core.context_processors.request',)
 
