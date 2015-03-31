@@ -87,4 +87,4 @@ class ReamazeTagTest(TestCase):
         self.request.META['HTTP_REFERER'] = 'http_referer'
         rendered = self.TEMPLATE.render(Context({'request': self.request}))
         self.assertIn("reamaze.js", rendered)
-        self.assertNotIn("channel: 'CHANNEL_NAME'", rendered)
+        self.assertNotIn("mailbox: 'CHANNEL_NAME'", rendered)
