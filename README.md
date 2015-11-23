@@ -3,7 +3,7 @@ Django-Reamaze
 
 Django Reamaze is django app for integrate Reamaze ( http://reamaze.com ) LightBox in django project.
 
-It's tested with django 1.4(py2.7) and 1.7(py2.7 and py3.4)
+It's tested with django 1.4(py2.7) and 1.8(py2.7 and py3.4)
 
 [![Build Status](https://travis-ci.org/mrjmad/django-reamaze.svg?branch=master)](https://travis-ci.org/mrjmad/django-reamaze)  [![Coverage Status](https://img.shields.io/coveralls/mrjmad/django-reamaze.svg)](https://coveralls.io/r/mrjmad/django-reamaze?branch=master)
 
