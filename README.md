@@ -15,5 +15,5 @@ you need populate this value in settings.py :
 * REAMAZE_SECRET_KEY (your SSO Key, in settings of Reamaze)
 * REAMAZE_JS_URL (in  Website Integration / Support Lightbox of Reamaze)
 * REAMAZE_ACCOUNT (name of reamaze account)
-* REAMAZE_CHANNEL  (channel for messages)
+* REAMAZE_CHANNEL  (mailbox for messages)
 * REAMAZE_OK_FOR_ANONYMOUS (only for you authentified django user or for everyone ?)
