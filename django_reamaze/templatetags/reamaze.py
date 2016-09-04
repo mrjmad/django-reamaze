@@ -15,10 +15,10 @@ def add_reamaze_script(context):
         prefix_for_user_id = getattr(settings, 'REAMAZE_PREFIX_USER_ID', None)
         request = context['request']
         reamaze_context = {'display_reamaze': False, 'reamaze_auth_key': None}
-        if not prefix_for_user_id:
-            reamaze_context["user_id"] = request.user.id
-        else:
-            reamaze_context["user_id"] = prefix_for_user_id + str(request.user.id)
+        user_id = reamaze_context["user_id"] = request.user.id
+        if prefix_for_user_id:
+            user_id = prefix_for_user_id + str(request.user.id)
+        reamaze_context["user_id"] = user_id
         if request.user.is_authenticated() or anonymous_mode:
             reamaze_context.update({'display_reamaze': True,
                                     'reamaze_js_url': getattr(settings, 'REAMAZE_JS_URL', ""),
@@ -30,7 +30,7 @@ def add_reamaze_script(context):
         if request.user.is_authenticated():
             reamaze_secret_key = getattr(settings, 'REAMAZE_SECRET_KEY', b"")
             reamaze_auth_key = hmac.new(reamaze_secret_key,
-                                        six.b(str(request.user.id)) + b":" + six.b(request.user.email),
+                                        six.b(str(user_id)) + b":" + six.b(request.user.email),
                                         hashlib.sha256).hexdigest()
             reamaze_context['reamaze_auth_key'] = reamaze_auth_key
 
