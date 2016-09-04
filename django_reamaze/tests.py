@@ -45,7 +45,7 @@ class ReamazeTagTest(TestCase):
                                             email='email@email.com')
         else:
             self.user = get_user_model().objects.create(username='realuser',
-                                            email='email@email.com')
+                                                        email='email@email.com')
 
         self.request.user = self.user
         self.request.META['HTTP_USER_AGENT'] = 'Firefox'
@@ -55,13 +55,32 @@ class ReamazeTagTest(TestCase):
         self.assertIn("authkey", rendered)
         self.assertIn("_support['name'] = 'realuser';", rendered)
 
+    def test_reamaze_user_with_prefix_display(self):
+        if django.get_version().startswith("1.4"):
+            self.user = User.objects.create(username='realuser',
+                                            email='email@email.com')
+        else:
+            self.user = get_user_model().objects.create(username='realuser',
+                                                        email='email@email.com')
+
+        settings.REAMAZE_PREFIX_USER_ID = 'prefix_id'
+        self.request.user = self.user
+
+        self.request.META['HTTP_USER_AGENT'] = 'Firefox'
+        self.request.META['HTTP_REFERER'] = 'http_referer'
+        rendered = self.TEMPLATE.render(Context({'request': self.request}))
+        self.assertIn("_support['id'] = '%s%s'" % (settings.REAMAZE_PREFIX_USER_ID, str(self.user.pk)), rendered)
+        self.assertIn("authkey", rendered)
+        self.assertIn("_support['name'] = 'realuser';", rendered)
+        settings.REAMAZE_PREFIX_USER_ID = None
+
     def test_reamaze_user_agent_and_no_referer(self):
         if django.get_version().startswith("1.4"):
             self.user = User.objects.create(username='realuser',
                                             email='email@email.com')
         else:
             self.user = get_user_model().objects.create(username='realuser',
-                                            email='email@email.com')
+                                                        email='email@email.com')
         self.request.user = self.user
         self.request.META['HTTP_USER_AGENT'] = 'Firefox'
         rendered = self.TEMPLATE.render(Context({'request': self.request}))

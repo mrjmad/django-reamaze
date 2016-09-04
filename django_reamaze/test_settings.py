@@ -15,7 +15,7 @@ ALLOWED_HOSTS = []
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 # Application definition
@@ -38,7 +38,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',)
 
 TEMPLATE_CONTEXT_PROCESSORS += (
-     'django.core.context_processors.request',)
+    'django.core.context_processors.request',)
 
 
 DATABASES = {
@@ -56,3 +56,4 @@ REAMAZE_JS_URL = "//URL/reamaze.js"
 REAMAZE_ACCOUNT = "ACCOUNT_NAME"
 REAMAZE_CHANNEL = "CHANNEL_NAME"
 REAMAZE_OK_FOR_ANONYMOUS = True
+REAMAZE_PREFIX_USER_ID = None

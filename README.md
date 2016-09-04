@@ -17,3 +17,4 @@ you need populate this value in settings.py :
 * REAMAZE_ACCOUNT (name of reamaze account)
 * REAMAZE_CHANNEL  (mailbox for messages)
 * REAMAZE_OK_FOR_ANONYMOUS (only for you authentified django user or for everyone ?)
+* REAMAZE_PREFIX_USER_ID if you will use a prefix before django user id.

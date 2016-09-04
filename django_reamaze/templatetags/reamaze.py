@@ -12,8 +12,13 @@ def add_reamaze_script(context):
     import hashlib
     try:
         anonymous_mode = getattr(settings, 'REAMAZE_OK_FOR_ANONYMOUS', False)
+        prefix_for_user_id = getattr(settings, 'REAMAZE_PREFIX_USER_ID', None)
         request = context['request']
         reamaze_context = {'display_reamaze': False, 'reamaze_auth_key': None}
+        if not prefix_for_user_id:
+            reamaze_context["user_id"] = request.user.id
+        else:
+            reamaze_context["user_id"] = prefix_for_user_id + str(request.user.id)
         if request.user.is_authenticated() or anonymous_mode:
             reamaze_context.update({'display_reamaze': True,
                                     'reamaze_js_url': getattr(settings, 'REAMAZE_JS_URL', ""),
