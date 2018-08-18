@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 SECRET_KEY = 'iz@*(xuwo+a2a2r+jb1p8-ap8hic1_l(h$vj(mr_v!d6%ijr1n'
 
@@ -17,6 +16,24 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     #     'django.template.loaders.eggs.Loader',
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+            ],
+        },
+    },
+]
 
 # Application definition
 
@@ -36,9 +53,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',)
-
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',)
 
 
 DATABASES = {

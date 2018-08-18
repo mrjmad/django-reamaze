@@ -6,6 +6,12 @@ from django.template import Library
 register = Library()
 
 
+def user_is_authenticated(user):
+    if callable(user.is_authenticated):
+        return user.is_authenticated()
+    return user.is_authenticated
+
+
 @register.inclusion_tag('django_reamaze/templatetags/reamaze.html', takes_context=True)
 def add_reamaze_script(context):
     import hmac
@@ -19,7 +25,7 @@ def add_reamaze_script(context):
         if prefix_for_user_id:
             user_id = prefix_for_user_id + str(request.user.id)
         reamaze_context["user_id"] = user_id
-        if request.user.is_authenticated() or anonymous_mode:
+        if user_is_authenticated(request.user) or anonymous_mode:
             reamaze_context.update({'display_reamaze': True,
                                     'reamaze_js_url': getattr(settings, 'REAMAZE_JS_URL', ""),
                                     'reamaze_account': getattr(settings, 'REAMAZE_ACCOUNT', ""),
@@ -27,7 +33,7 @@ def add_reamaze_script(context):
                                     'http_referer': request.META.get('HTTP_REFERER', ""),
                                     'reamaze_channel': getattr(settings, 'REAMAZE_CHANNEL', None)})
 
-        if request.user.is_authenticated():
+        if user_is_authenticated(request.user):
             reamaze_secret_key = getattr(settings, 'REAMAZE_SECRET_KEY', b"")
             reamaze_auth_key = hmac.new(reamaze_secret_key,
                                         six.b(str(user_id)) + b":" + six.b(request.user.email),
